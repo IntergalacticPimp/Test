@@ -1,0 +1,129 @@
+package FalloutTerminal;
+import java.util.*;
+public class Template
+{
+    public static void main(String[] args) 
+    {
+        Random rand = new Random();
+        Scanner scan = new Scanner(System.in);
+
+        String user;
+        String answer = "____";
+        int noPass = 0;
+        int attempts = 3;
+        int i = 0;
+        int count = 0;
+        char ans;
+        char cAns;
+        int correct = 0;
+
+        String[] passCode1 = new String[10];
+        passCode1[0] = "LOOT"; //1
+        passCode1[1] = "BOAT"; //2
+        passCode1[2] = "FRAT"; //3
+        passCode1[3] = "BATH"; //4
+        passCode1[4] = "MATH"; //5
+        passCode1[5] = "ANKH"; //6
+        passCode1[6] = "TACK"; //7
+        passCode1[7] = "WORK"; //8
+        passCode1[8] = "HACK"; //9
+        passCode1[9] = "LAKE"; //10
+        int rand1 = rand.nextInt(10);
+        String codeAnswer = passCode1[rand1];
+
+        String[] rows = new String[5];
+        rows[0] = "|0xF924 -> *$*LOOT^(% | 0xF9F0 -> ^&-#ANKH#$|"; //1
+        rows[1] = "|0xF930 -> |+@#BOAT:{ | 0xF9FC -> *:TACK>:*?|"; //2
+        rows[2] = "|0xF93C -> _{FRAT{|(% | 0xFA08 -> :-+#%@WORK|"; //3
+        rows[3] = "|0xF948 -> #*#:}?BATH | 0xFA14 -> [HACK[&$*<|"; //4
+        rows[4] = "|0xF954 -> @MATH/*/#% | 0xFA20 -> /-%$LAKE#*|"; //5
+
+        String[] boxes = new String[10];
+        boxes[0] = "■ ■ ■";
+        boxes[1] = "■ ■";
+        boxes[2] = "■";
+
+        System.out.print("\f");
+        System.out.print("ENTER USERNAME: ");
+        user = scan.nextLine();
+
+        while(noPass == 0)
+        {
+            if (attempts > 0)
+            {
+                System.out.print("\f");
+                System.out.println("[WELCOME USER: " + user.toUpperCase() + "]");
+                System.out.println("ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL");
+                System.out.println("ENTER PASSWORD NOW (TURN CAPSLOCK ON)");
+                System.out.println();
+                System.out.println(attempts + " ATTEMPT(S) LEFT: " + boxes[i]);
+                if (i < 4)
+                {
+                    i++;
+                    if (attempts > 0)
+                    {
+                        attempts--;
+                    }
+                    else 
+                    {
+                        attempts = attempts;
+                    }
+                }
+                else 
+                {
+                    i = i;
+                }
+                System.out.println();
+
+                System.out.println((rows[0]) + " >" + answer);
+                System.out.println((rows[1]) + " >Entry denied");
+                System.out.println((rows[2]) + " >" + count + "/4 correct.");
+                System.out.println(rows[3]);
+                System.out.print((rows[4]) + " > ");
+                answer = scan.nextLine();
+                if (answer.equalsIgnoreCase(codeAnswer))
+                {
+                    noPass = 1;
+                    correct = 1;
+                }
+                else if (answer.length() == 4)
+                {
+                    count = 0;
+                    for (int j = 0; j < 4; j++)
+                    {
+                        ans = answer.charAt(j);
+                        cAns = codeAnswer.charAt(j);
+                        if (ans == cAns)
+                        {
+                            count++;
+                        }
+                        else
+                        {
+                            count = count;
+                        }
+                    }
+                }
+                else
+                {
+                    answer = "ERROR";
+                    attempts++;
+                    i--;
+                }
+            }
+            else
+            {
+                noPass = 1;
+            }
+        }
+        if (correct == 1)
+        {
+            System.out.print("\f");
+            System.out.println("CORRECT!");
+        }
+        else
+        {
+            System.out.print("\f");
+            System.out.println("LOCKED OUT!");
+        }
+    }
+}
